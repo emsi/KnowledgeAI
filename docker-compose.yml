@@ -1,0 +1,46 @@
+services:
+  KnowledgeAI:
+    runtime: nvidia
+    image: emsi/knowledge_ai
+    build:
+      context: .
+      dockerfile: Dockerfile
+    expose:
+      - 22
+    ports:
+    # streamlit
+      - 8501
+    environment:
+      - NVIDIA_VISIBLE_DEVICES=all
+      - HOME=${HOME}
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+    user: ${COMPOSE_USER_ID}:${COMPOSE_GROUP_ID}
+    working_dir: ${HOME}
+    volumes:
+      - /etc/passwd:/etc/passwd:ro
+      - /etc/shadow:/etc/shadow:ro
+      - /etc/group:/etc/group:ro
+      - sudoers:/etc/sudoers.d/:ro
+      - /etc/localtime:/etc/localtime:ro
+      - home:/home/
+      - ${HOME}/.cache/huggingface/:${HOME}/.cache/huggingface/
+      - ${HOME}/.ssh/authorized_keys:${HOME}/.ssh/authorized_keys:ro
+      - ./data:/data
+      - ./app:/app  # for development
+    init: true
+#    restart: always
+    depends_on:
+      - sudo
+
+  sudo:
+    image: emsi/knowledge_ai
+    volumes:
+      - ./sudoers.sh:/sudoers.sh
+      - sudoers:/etc/sudoers.d/:rw
+      - home:/home/
+
+    command: /sudoers.sh
+
+volumes:
+  sudoers:
+  home:
