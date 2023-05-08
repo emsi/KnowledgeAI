@@ -16,7 +16,6 @@ echo "$(cd "${script_dir}"; git pull)" >> /dev/null
 
 # set variables for  uid/gid and prefix project name with username
 cat > "${script_dir}/.env" << EOF
-OPENAI_API_KEY=${OPENAI_API_KEY}
 CUDA_VERSION="${CUDA_VERSION}"
 TF_VERSION="${TF_VERSION}"
 

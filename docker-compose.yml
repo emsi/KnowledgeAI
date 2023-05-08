@@ -13,7 +13,6 @@ services:
     environment:
       - NVIDIA_VISIBLE_DEVICES=all
       - HOME=${HOME}
-      - OPENAI_API_KEY=${OPENAI_API_KEY}
     user: ${COMPOSE_USER_ID}:${COMPOSE_GROUP_ID}
     working_dir: ${HOME}
     volumes:

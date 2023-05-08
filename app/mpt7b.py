@@ -5,6 +5,8 @@ import streamlit as st
 import torch
 from transformers import AutoModelForCausalLM, AutoTokenizer
 
+from config import settings
+
 INSTRUCTION_KEY = "### Instruction:"
 RESPONSE_KEY = "### Response:"
 END_KEY = "### End"
@@ -98,6 +100,7 @@ class InstructionTextGenerationPipeline:
 
 
 class Chat:
+    """Chatbot class implemented using MosaicML MPT"""
     def __init__(self, stream_container):
         self.response = ""
         self.stream_container = stream_container
@@ -110,9 +113,10 @@ class Chat:
 
     def __call__(self, question, docsearch):
         """Ask a question to the chatbot."""
-        documents = docsearch.similarity_search(question, top_k=2)[0:2]
-        document = "\n\n".join([doc.page_content for doc in documents][:-3000])
-        prompt = f"""You are a helpful assistant that answers questions. If unsure say 'I don't know'.
+        if settings.TOP_K:
+            documents = docsearch.similarity_search(question, top_k=settings.TOP_K)
+            document = "\n\n".join([doc.page_content for doc in documents])
+            prompt = f"""{settings.PROMPT}
 
 Given following document, please answer following question: "{question}"?
 
@@ -125,7 +129,8 @@ END OF DOCUMENT
 
 QUESTION: "{question}"?
 """
-        print(prompt+"::")
+        else:
+            prompt = f"""{settings.PROMPT}\n{question}?"""
         response = self.pipeline(prompt)
         self.stream_container.markdown(response)
         return response

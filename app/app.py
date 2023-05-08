@@ -1,28 +1,23 @@
-import os
-
-import openai
 import streamlit as st
 from langchain.embeddings import OpenAIEmbeddings
 from langchain.vectorstores import FAISS
 
-from mpt7b import Chat
+from chat_gpt import Chat
+from config import settings
 
-openai.api_key = os.environ["OPENAI_API_KEY"]
-embeddings = OpenAIEmbeddings(openai_api_key=openai.api_key)
-docsearch = FAISS.load_local("/data/docsearch.1100", embeddings)
+embeddings = OpenAIEmbeddings(openai_api_key=settings.OPENAI_API_KEY)
+docsearch = FAISS.load_local(settings.DATA / settings.DATABASE, embeddings)
 
-st.title("KnowledgeAI")
-user_question = st.text_input("Ask a question about document:")
+st.title(settings.APP_NAME)
+user_question = st.text_input(settings.TAGLINE)
 
 # Create an empty text element and store it in a variable
-with st.expander("Response:", expanded=True):
+with st.expander("", expanded=True):
     stream_container = st.empty()
 
 
 if __name__ == "__main__":
-
     ask_question = Chat(stream_container)
 
     if user_question:
         docs = ask_question(user_question, docsearch)
-        print(docs)
