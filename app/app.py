@@ -1,8 +1,9 @@
+import importlib
+
 import streamlit as st
 from langchain.embeddings import OpenAIEmbeddings
 from langchain.vectorstores import FAISS
 
-from chat_gpt import Chat
 from config import settings
 
 embeddings = OpenAIEmbeddings(openai_api_key=settings.OPENAI_API_KEY)
@@ -17,6 +18,7 @@ with st.expander("", expanded=True):
 
 
 if __name__ == "__main__":
+    Chat = importlib.import_module(settings.BACKEND).Chat
     ask_question = Chat(stream_container)
 
     if user_question:

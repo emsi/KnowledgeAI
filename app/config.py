@@ -27,6 +27,8 @@ class Settings(BaseSettings):
     # number of documents retrieved from the database
     TOP_K = 3
 
+    BACKEND = "chat_gpt"
+
     class Config:
         """Read configuration from .env file."""
 
