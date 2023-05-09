@@ -30,6 +30,8 @@ class Settings(BaseSettings):
 
     BACKEND = "chat_gpt"
 
+    MPT_MODEL = "mpt-7b-instruct"
+
     class Config:
         """Read configuration from .env file."""
 
