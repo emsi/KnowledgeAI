@@ -21,7 +21,6 @@ TF_VERSION="${TF_VERSION}"
 
 COMPOSE_USER_ID=$(id -u)
 COMPOSE_GROUP_ID=$(id -g)
-COMPOSE_PROJECT_NAME="$(whoami)-ml-cuda"
 EOF
 
 # create appropriate sudoers.sh script
