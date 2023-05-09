@@ -114,9 +114,11 @@ class Chat:
     def __call__(self, question, docsearch):
         """Ask a question to the chatbot."""
         if settings.TOP_K:
-            documents = docsearch.similarity_search(question, top_k=settings.TOP_K)
+            # there's some kind of bug in docsearch atm and it returns
+            # everything as a last element of the list, so we need to remove it
+            documents = docsearch.similarity_search(question, top_k=settings.TOP_K)[:-1]
             document = "\n\n".join([doc.page_content for doc in documents])
-            prompt = f"""{settings.PROMPT}
+            prompt = f"""{settings.SYSTEM_PROMPT}
 
 Given following document, please answer following question: "{question}"?
 
@@ -130,7 +132,7 @@ END OF DOCUMENT
 QUESTION: "{question}"?
 """
         else:
-            prompt = f"""{settings.PROMPT}\n{question}?"""
+            prompt = f"""{settings.SYSTEM_PROMPT}\n{question}?"""
         response = self.pipeline(prompt)
         self.stream_container.markdown(response)
         return response

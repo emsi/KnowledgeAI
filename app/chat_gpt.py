@@ -38,7 +38,7 @@ class Chat:
             documents = docsearch.similarity_search(question, top_k=settings.TOP_K)[:-1]
             document = "\n\n".join([doc.page_content for doc in documents])
             messages = [
-                SystemMessage(content=settings.PROMPT),
+                SystemMessage(content=settings.SYSTEM_PROMPT),
                 HumanMessage(
                     content=f'Given following document, please answer following question: "{question}"? '
                     f'\n\nDOCUMENT: ```{document}```\n\nEND OF DOCUMENT\n\nQUESTION: "{question}"\n\n'
@@ -46,7 +46,7 @@ class Chat:
             ]
         else:
             messages = [
-                SystemMessage(content=settings.PROMPT),
+                SystemMessage(content=settings.SYSTEM_PROMPT),
                 HumanMessage(content=question),
             ]
         return self.chat(messages)

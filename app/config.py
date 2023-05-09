@@ -19,9 +19,10 @@ class Settings(BaseSettings):
     OPENAI_API_KEY = ""
     TAGLINE = "Ask a question"
 
-    PROMPT = (
+    SYSTEM_PROMPT = (
         "You are a helpful assistant that answers questions."
-        " If unsure politely decline and offer a funny joke."
+        " If unsure politely decline to answer and and offer a original "
+        "and joke instead. Stick to the language used in question."
     )
 
     # number of documents retrieved from the database
