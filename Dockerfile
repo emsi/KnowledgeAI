@@ -5,6 +5,6 @@ RUN pip install --no-cache-dir -r /requirements.txt
 
 COPY app /app
 
-WORKDIR /
+WORKDIR /app
 
-CMD ["python3", "-m", "streamlit", "run", "/app/app.py", "--server.port", "8501", "--server.enableCORS", "false"]
+CMD ["python3", "-m", "streamlit", "run", "./app.py", "--server.port", "8501"]
