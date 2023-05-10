@@ -7,4 +7,4 @@ COPY app /app
 
 WORKDIR /app
 
-CMD ["python3", "-m", "streamlit", "run", "./app.py", "--server.port", "8501"]
+CMD ["python3", "-m", "streamlit", "run", "./app.py", "--server.port", "8501", "--browser.gatherUsageStats", "false"]
