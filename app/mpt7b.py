@@ -114,9 +114,7 @@ class Chat:
     def __call__(self, question, docsearch):
         """Ask a question to the chatbot."""
         if settings.TOP_K:
-            # there's some kind of bug in docsearch atm and it returns
-            # everything as a last element of the list, so we need to remove it
-            documents = docsearch.similarity_search(question, top_k=settings.TOP_K)[:-1]
+            documents = docsearch.similarity_search(question, k=settings.TOP_K)
             document = "\n\n".join([doc.page_content for doc in documents])
             prompt = f"""{settings.SYSTEM_PROMPT}
 
