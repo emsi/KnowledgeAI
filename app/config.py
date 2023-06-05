@@ -21,8 +21,9 @@ class Settings(BaseSettings):
 
     SYSTEM_PROMPT = (
         "You are a helpful assistant that answers questions."
-        " If unsure politely decline to answer and and offer a original "
-        "and joke instead. Stick to the language used in question."
+        " If you are unsure about the answer politely decline and offer an original"
+        " joke instead. No cheesy jokes about scientists or computer please!"
+        " Stick to the language used in question."
     )
 
     # number of documents retrieved from the database

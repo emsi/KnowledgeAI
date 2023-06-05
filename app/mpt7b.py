@@ -34,6 +34,7 @@ def load_large_language_model(
         torch_dtype=torch_dtype,
         trust_remote_code=trust_remote_code,
         use_auth_token=use_auth_token,
+        low_cpu_mem_usage=True,
     )
     tokenizer = AutoTokenizer.from_pretrained(
         model_name,
@@ -131,6 +132,7 @@ QUESTION: "{question}"?
 """
         else:
             prompt = f"""{settings.SYSTEM_PROMPT}\n{question}?"""
-        response = self.pipeline(prompt)
-        self.stream_container.markdown(response)
+        with st.spinner("Please wait. Generating response..."):
+            response = self.pipeline(prompt)
+            self.stream_container.markdown(response)
         return response
