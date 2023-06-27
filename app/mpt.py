@@ -137,5 +137,5 @@ QUESTION: "{question}"?
         with st.spinner("Please wait. Generating response..."):
             response = self.pipeline(prompt)
             self.stream_container.markdown(response)
-        self.log(prompt, response)
+        self.log(prompt, response, prompt)
         return response
