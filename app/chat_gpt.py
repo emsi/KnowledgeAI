@@ -1,14 +1,14 @@
 from typing import Any
 
-import openai
 from langchain.callbacks.streaming_stdout import StreamingStdOutCallbackHandler
 from langchain.chat_models import ChatOpenAI
 from langchain.schema import SystemMessage, HumanMessage
 
+import chat
 from config import settings
 
 
-class Chat:
+class Chat(chat.Chat):
     """Chatbot class. Implemented using OpenAI API."""
 
     def __init__(self, stream_container):
@@ -23,9 +23,9 @@ class Chat:
                 stream_container.markdown(self.chat.response)
 
         self.chat = ChatOpenAI(
-            model_name=settings.GPT_MODEL,
+            model_name=settings.MODEL,
             temperature=settings.TEMPERATURE,
-            openai_api_key=openai.api_key,
+            openai_api_key=settings.OPENAI_API_KEY,
             streaming=True,
             callbacks=[StreamingStreamlitOutCallbackHandler()],
         )
@@ -47,4 +47,5 @@ class Chat:
                 SystemMessage(content=settings.SYSTEM_PROMPT),
                 HumanMessage(content=question),
             ]
-        return self.chat(messages)
+        resp = self.chat(messages)
+        self.log(question, resp.content, messages[1])

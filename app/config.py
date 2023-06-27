@@ -13,7 +13,8 @@ class Settings(BaseSettings):
     DATA: Path = CWD.parent / "data"
     DATABASE: str = "docsearch.faiss"
 
-    GPT_MODEL: str = "gpt-3.5-turbo"
+    BACKEND: str = "chat_gpt"
+    MODEL: str = "gpt-3.5-turbo"
     TEMPERATURE: int = 0
 
     OPENAI_API_KEY: str = ""
@@ -29,11 +30,9 @@ class Settings(BaseSettings):
     # number of documents retrieved from the database
     TOP_K: int = 3
 
-    BACKEND: str = "chat_gpt"
-
-    MPT_MODEL: str = "mpt-7b-instruct"
-
-    MPT_MODEL = "mpt-7b-instruct"
+    LOG_QUESTIONS: bool = True
+    LOG_ANSWERS: bool = True
+    LOG_PROMPTS: bool = False
 
     class Config:
         """Read configuration from .env file."""

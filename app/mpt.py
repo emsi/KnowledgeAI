@@ -5,6 +5,7 @@ import streamlit as st
 import torch
 from transformers import AutoModelForCausalLM, AutoTokenizer
 
+import chat
 from config import settings
 
 INSTRUCTION_KEY = "### Instruction:"
@@ -100,14 +101,15 @@ class InstructionTextGenerationPipeline:
         return output_text
 
 
-class Chat:
+class Chat(chat.Chat):
     """Chatbot class implemented using MosaicML MPT"""
+
     def __init__(self, stream_container):
         self.response = ""
         self.stream_container = stream_container
         # Initialize the model and tokenizer
         self.pipeline = InstructionTextGenerationPipeline(
-            "mosaicml/mpt-7b-instruct",
+            settings.MODEL,
             torch_dtype=torch.bfloat16,
             trust_remote_code=True,
         )
@@ -135,4 +137,5 @@ QUESTION: "{question}"?
         with st.spinner("Please wait. Generating response..."):
             response = self.pipeline(prompt)
             self.stream_container.markdown(response)
+        self.log(prompt, response)
         return response
