@@ -1,5 +1,5 @@
 git+https://github.com/huggingface/transformers
-accelerate
+accelerate>=0.20.3
 xformers
 einops
 streamlit~=1.22.0
