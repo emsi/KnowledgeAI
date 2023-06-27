@@ -42,6 +42,6 @@ else
 	compose='docker compose'
 fi
 
-$compose restart -d
+$compose restart
 
 $compose logs -f
