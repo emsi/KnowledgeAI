@@ -97,9 +97,9 @@ class Chat(chat.Chat):
 
             def on_finalized_text(self, text: str, stream_end: bool = False):
                 """Run on finalized text. Only available when streaming is enabled."""
-                if text == "<|endoftext|>":
-                    self.chat.response = ""
-                    return
+                if text.endswith("<|endoftext|>"):
+                    # strip the end of text token
+                    text = text[:-13]
 
                 self.chat.response += text
                 stream_container.markdown(self.chat.response)
@@ -135,8 +135,6 @@ QUESTION: "{question}"?
 """
         else:
             prompt = f"""{settings.SYSTEM_PROMPT}\n{question}?"""
-        with st.spinner("Please wait. Generating response..."):
-            response = self.pipeline(prompt, **self.generate_kwargs)
-            # self.stream_container.markdown(response)
+
+        response = self.pipeline(prompt, **self.generate_kwargs)
         self.log(question, response, prompt)
-        return response
