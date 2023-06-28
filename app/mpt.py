@@ -81,6 +81,15 @@ class Chat(chat.Chat):
     def __init__(self, stream_container):
         self.response = ""
         self.stream_container = stream_container
+        self.generate_kwargs = {
+            "temperature": 0.1,
+            "top_p": 0.92,
+            "top_k": 0,
+            "max_new_tokens": 1024,
+            "use_cache": True,
+            "do_sample": True,
+            "repetition_penalty": 1.1,  # 1.0 means no penalty, > 1.0 means penalty, 1.2 from CTRL paper
+        }
 
         class StreamlitTextStreamer(transformers.TextStreamer):
             chat = self
@@ -121,7 +130,7 @@ QUESTION: "{question}"?
         else:
             prompt = f"""{settings.SYSTEM_PROMPT}\n{question}?"""
         with st.spinner("Please wait. Generating response..."):
-            response = self.pipeline(prompt)
-            self.stream_container.markdown(response)
+            response = self.pipeline(prompt, **self.generate_kwargs)
+            # self.stream_container.markdown(response)
         self.log(question, response, prompt)
         return response
