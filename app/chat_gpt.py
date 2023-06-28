@@ -47,5 +47,5 @@ class Chat(chat.Chat):
                 SystemMessage(content=settings.SYSTEM_PROMPT),
                 HumanMessage(content=question),
             ]
-        resp = self.chat(messages)
-        self.log(question, resp.content, messages[1])
+        response = self.chat(messages)
+        self.log(question, response.content, messages[1])
