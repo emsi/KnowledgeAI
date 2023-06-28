@@ -122,12 +122,12 @@ class Chat(chat.Chat):
             document = "\n\n".join([doc.page_content for doc in documents])
             prompt = f"""{settings.SYSTEM_PROMPT}
 
-Given following document, please answer following question: "{question}".
-
+Given following document:
 DOCUMENT:
 ```
 {document}
 ```
+Please answer following question: "{question}"
 """
         else:
             prompt = f"""{settings.SYSTEM_PROMPT}\n{question}?"""
