@@ -88,7 +88,8 @@ class Chat(chat.Chat):
             "max_new_tokens": 1024,
             "use_cache": True,
             "do_sample": True,
-            "repetition_penalty": 1.1,  # 1.0 means no penalty, > 1.0 means penalty, 1.2 from CTRL paper
+            # 1.0 means no penalty, > 1.0 means penalty, 1.2 from CTRL paper
+            "repetition_penalty": 1.1,
         }
 
         class StreamlitTextStreamer(transformers.TextStreamer):
@@ -96,10 +97,15 @@ class Chat(chat.Chat):
 
             def on_finalized_text(self, text: str, stream_end: bool = False):
                 """Run on finalized text. Only available when streaming is enabled."""
+                if text == "<|endoftext|>":
+                    self.chat.response = ""
+                    return
+
                 self.chat.response += text
-                if stream_end:
-                    self.chat.response += "\n"
                 stream_container.markdown(self.chat.response)
+
+                if stream_end:
+                    self.chat.response = ""
 
         # Initialize the model and tokenizer
         self.pipeline = load_large_language_model_pipeline(
