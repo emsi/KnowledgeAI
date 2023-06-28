@@ -121,13 +121,13 @@ class Chat(chat.Chat):
             documents = docsearch.similarity_search(question, k=settings.TOP_K)
             document = "\n\n".join([doc.page_content for doc in documents])
             prompt = f"""{settings.SYSTEM_PROMPT}
-
-Given following document:
 DOCUMENT:
 ```
 {document}
 ```
-Please answer following question: "{question}"
+END OF DOCUMENT
+
+Please answer following question using information from DOCUMENT: "{question}"?
 """
         else:
             prompt = f"""{settings.SYSTEM_PROMPT}\n{question}?"""
