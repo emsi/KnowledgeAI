@@ -12,35 +12,36 @@ To configure the KnowledgeAI application, you'll need to edit the `.env` file lo
 Here are the settings you can customize:
 
 ```markdown
-BACKEND: Choose between "chat_gpt" (default) and "mpt"
+BACKEND="chat_gpt" (default setting), or BACKEND="mpt"
 ```
 
-#### For OpenAI GPT Backend:
+#### Using OpenAI GPT Backend
 
-If you prefer to use the OpenAI GPT backend, you need to set the following configurations:
+If you choose to utilize the OpenAI GPT backend, please configure the following:
 
 ```markdown
-OPENAI_API_KEY: Your OpenAI API Key, e.g. "sk-..."
-MODEL: Specify the model, e.g. "gpt-4" (the application defaults to "gpt-3.5-turbo")
+OPENAI_API_KEY="sk-..."
+MODEL="gpt-4"
 ```
+Please note that if `MODEL` is not specified, the application will default to `"gpt-3.5-turbo"`.
 
-#### For MPT Backend:
+#### Using MPT Backend
 
 If you have a capable GPU, you can switch the backend to MPT and set the model as follows:
 
 ```markdown
-BACKEND: Set to "mpt"
-MODEL: Specify the model, e.g. "mosaicml/mpt-7b-instruct"
+BACKEND="mpt"
+MODEL="mosaicml/mpt-7b-instruct"
 ```
 
-### Application Appearance
+### Customizing Application Appearance
 
 You can also customize the application's appearance by changing the following settings:
 
 ```markdown
-APP_NAME: Your application name, e.g. "Sauton AI"
-TAGLINE: A brief description or tagline, e.g. "I've read all Tolkien's books. Ask me anything."
-DATABASE: The database to be used, e.g. "Tolkien.faiss"
+APP_NAME="Sauton AI"
+TAGLINE="I've read all Tolkien's books. Ask me anything."
+DATABASE="Tolkien.faiss"
 ```
 
 Please note that you'll need to prepare the database in advance.
