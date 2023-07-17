@@ -1,25 +1,47 @@
-# KnowledgeAI
-KnowledgeAI is AI interface to your internal knowledge
+# KnowledgeAI - Your AI Interface to Internal Knowledge
 
-To configure edit `.env` file in app directory and configure application.
+Welcome to KnowledgeAI, your personal Artificial Intelligence interface to internal knowledge. This guide will help you set up and configure the application according to your needs.
 
-If you want to go with OpenAI GPT backend you need to configure:</br>
-`OPENAI_API_KEY="sk-..."`</br>
-and perhaps:</br>
-`MODEL="gpt-4"`</br>
-(the app defaults to gpt-3.5-turbo)</br>
+## Configuration
 
+To configure the KnowledgeAI application, you'll need to edit the `.env` file located in the
+`app` directory.
 
-If you have a capable GPU you can change backend to MPT with:</br>
+### Available Settings
+
+Here are the settings you can customize:
+
+```markdown
+BACKEND: Choose between "chat_gpt" (default) and "mpt"
 ```
-BACKEND="mpt"
-MODEL="mosaicml/mpt-7b-instruct"
+
+#### For OpenAI GPT Backend:
+
+If you prefer to use the OpenAI GPT backend, you need to set the following configurations:
+
+```markdown
+OPENAI_API_KEY: Your OpenAI API Key, e.g. "sk-..."
+MODEL: Specify the model, e.g. "gpt-4" (the application defaults to "gpt-3.5-turbo")
 ```
 
-Last but not least you can customize appearance with something like:
+#### For MPT Backend:
+
+If you have a capable GPU, you can switch the backend to MPT and set the model as follows:
+
+```markdown
+BACKEND: Set to "mpt"
+MODEL: Specify the model, e.g. "mosaicml/mpt-7b-instruct"
 ```
-APP_NAME="Sauton AI"
-TAGLINE="I've read all Tolkien's books. Ask me anything."
-DATABASE="Tolkien.faiss"
+
+### Application Appearance
+
+You can also customize the application's appearance by changing the following settings:
+
+```markdown
+APP_NAME: Your application name, e.g. "Sauton AI"
+TAGLINE: A brief description or tagline, e.g. "I've read all Tolkien's books. Ask me anything."
+DATABASE: The database to be used, e.g. "Tolkien.faiss"
 ```
-of course you need to prepare the database first. (more on that later)
+
+Please note that you'll need to prepare the database in advance.
+More information on this will be provided later.
