@@ -1,9 +1,10 @@
 """MosaicML MPT backend implementation."""
+import chat
 import streamlit as st
 import torch
 import transformers
 
-import chat
+from app.prompt import get_prompt
 from config import settings
 
 
@@ -117,20 +118,7 @@ class Chat(chat.Chat):
 
     def __call__(self, question, docsearch):
         """Ask a question to the chatbot."""
-        if settings.TOP_K:
-            documents = docsearch.similarity_search(question, k=settings.TOP_K)
-            document = "\n\n".join([doc.page_content for doc in documents])
-            prompt = f"""{settings.SYSTEM_PROMPT}
-DOCUMENT:
-```
-{document}
-```
-END OF DOCUMENT
-
-Please answer following question using information from DOCUMENT: "{question}"?
-"""
-        else:
-            prompt = f"""{settings.SYSTEM_PROMPT}\n{question}?"""
+        prompt = get_prompt(question, docsearch)
 
         response = self.pipeline(prompt, **self.generate_kwargs)
         self.log(question, response, prompt)
