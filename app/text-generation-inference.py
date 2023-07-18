@@ -19,7 +19,7 @@ class Chat(chat.Chat):
         prompt = get_prompt(question, docsearch)
 
         response = ""
-        for stream in self.client.generate_stream(prompt, max_new_tokens=1024):
+        for stream in self.client.generate_stream(prompt, max_new_tokens=512):
             if not stream.token.special:
                 response += stream.token.text
             self.stream_container.markdown(response)

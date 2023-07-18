@@ -120,5 +120,5 @@ class Chat(chat.Chat):
         """Ask a question to the chatbot."""
         prompt = get_prompt(question, docsearch)
 
-        response = self.pipeline(prompt, **self.generate_kwargs)
+        response = self.pipeline(format_prompt(prompt), **self.generate_kwargs)
         self.log(question, response, prompt)
