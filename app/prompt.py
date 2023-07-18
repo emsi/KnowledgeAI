@@ -1,7 +1,7 @@
 """Prompt generation module."""
 from langchain import FAISS
 
-from app.config import settings
+from config import settings
 
 
 def get_prompt(question: str, docsearch: FAISS):
