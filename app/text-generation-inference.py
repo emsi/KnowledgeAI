@@ -1,15 +1,9 @@
 """HuggingFace text-generation-inference backend implementation."""
 
 import chat
-from app.prompt import get_prompt
 from config import settings
+from prompt import get_prompt
 from text_generation import Client
-
-
-def format_prompt(instruction):
-    """Format the prompt for instruct text generation."""
-    template = "Below is an instruction that describes a task. Write a response that appropriately completes the request.\n\n###Instruction\n{instruction}\n\n### Response\n"  # noqa
-    return template.format(instruction=instruction)
 
 
 class Chat(chat.Chat):

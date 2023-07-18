@@ -4,7 +4,7 @@ import streamlit as st
 import torch
 import transformers
 
-from app.prompt import get_prompt
+from prompt import get_prompt
 from config import settings
 
 
